@@ -6,3 +6,24 @@
 .DS_Store
 /build
 /captures
+*.pdf
+build/*
+dist/*
+*.class
+lib/*
+nbproject/*
+build.xml
+manifest.mf
+# Package Files #
+*.jar
+*.war
+*.ear
+
+.idea
+target
+*.iml
+/bin/
+/build/
+.settings
+.gradle
+.metadata
