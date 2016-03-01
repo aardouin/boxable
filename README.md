@@ -1,35 +1,6 @@
 boxable
 =======
-
-Create tables in pdf documents using [PDFBox](http://pdfbox.apache.org)
-
-- Example pdf can be found at [examples](http://goo.gl/a7QvRM)
-
-- Example code can be found at [SampleCode](https://github.com/dhorions/boxable/blob/master/src/test/java/be/quodlibet/boxable/TableTest.java)
-
-The project is Java 7 compliant.
-
-Maven : 
-The project can be used as a Maven dependency by using jitpack.io.
-* add the repository : 
-```xml
-<repository>
-  <id>jitpack.io</id>
-  <url>https://jitpack.io</url>
-</repository>
-```
-* add the dependency
-```xml
-<dependencies>
-  <dependency>
-    <groupId>com.github.dhorions</groupId>
-    <artifactId>boxable</artifactId>
-    <version>1.2</version>
-  </dependency>
-</dependencies>
-```
-
-Special Thanks to [dgautier](https://github.com/dgautier) and [ZeerDonker](https://github.com/ZeerDonker) for their valuable contributions.
+Android port of [PDFBox by dhorions]
 
 =======
 
