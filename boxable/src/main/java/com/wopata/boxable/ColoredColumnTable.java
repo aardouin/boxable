@@ -26,12 +26,18 @@ public class ColoredColumnTable extends BaseTable {
         Row<PDPage> row = super.createRow(height);
         List<Cell<PDPage>> cells = new ArrayList<>();
 
-        for (ColoredColumn column : columns) {
-            Cell<PDPage> cell = row.createPercentCell(column.getWitdhPercent(),null);
+        for (int i = 0; i != columns.size();i++) {
+            ColoredColumn column  = columns.get(i);
+            Cell<PDPage> cell = createCell(row, column, i);
             cell.setFillColor(column.getColor());
             cells.add(cell);
         }
         return row;
+    }
+
+    protected Cell<PDPage> createCell(Row<PDPage> row , ColoredColumn column,int index) {
+        Cell<PDPage> cell = row.createPercentCell(column.getWitdhPercent(),null);
+        return cell;
     }
 
     @Override
