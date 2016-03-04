@@ -21,21 +21,24 @@ public class ColoredColumnTable extends BaseTable {
         super(yStart, yStartNewPage, bottomMargin, width, margin, document, currentPage, true, true);
         this.columns = columns;
     }
-
     public Row<PDPage> createPrefilledRow(float height) {
+        return createPrefilledRow(height,false);
+    }
+
+    public Row<PDPage> createPrefilledRow(float height,boolean isHeader) {
         Row<PDPage> row = super.createRow(height);
         List<Cell<PDPage>> cells = new ArrayList<>();
 
         for (int i = 0; i != columns.size();i++) {
             ColoredColumn column  = columns.get(i);
-            Cell<PDPage> cell = createCell(row, column, i);
+            Cell<PDPage> cell = createCell(row, column, i,isHeader);
             cell.setFillColor(column.getColor());
             cells.add(cell);
         }
         return row;
     }
 
-    protected Cell<PDPage> createCell(Row<PDPage> row , ColoredColumn column,int index) {
+    protected Cell<PDPage> createCell(Row<PDPage> row , ColoredColumn column,int index,boolean isHeader) {
         Cell<PDPage> cell = row.createPercentCell(column.getWitdhPercent(),null);
         return cell;
     }
