@@ -50,6 +50,9 @@ public abstract class Table<T extends PDPage> {
 
     private PDColor strokeColor = ColorUtils.getColor(Color.BLACK);
 
+
+    private float strokeWidth = 3f;
+
     private final boolean drawContent;
     private float headerBottomMargin = 4f;
 
@@ -418,12 +421,12 @@ public abstract class Table<T extends PDPage> {
 
     private void drawLine(String type, float xStart, float yStart, float xEnd, float yEnd) throws IOException {
 
-            this.tableContentStream.moveTo(xStart, yStart);
-            this.tableContentStream.lineTo(xEnd, yEnd);
-            this.tableContentStream.setStrokingColor(this.strokeColor);
-            this.tableContentStream.setLineWidth(3f);
-            this.tableContentStream.stroke();
-            this.tableContentStream.closePath();
+        this.tableContentStream.moveTo(xStart, yStart);
+        this.tableContentStream.lineTo(xEnd, yEnd);
+        this.tableContentStream.setStrokingColor(this.strokeColor);
+        this.tableContentStream.setLineWidth(this.strokeWidth);
+        this.tableContentStream.stroke();
+        this.tableContentStream.closePath();
     }
 
     private void fillCellColor(Cell<T> cell, float yStart, float xStart, Iterator<Cell<T>> cellIterator)
@@ -441,7 +444,6 @@ public abstract class Table<T extends PDPage> {
         this.tableContentStream.fill();
         this.tableContentStream.closePath();
     }
-
 
 
     private float getWidth(Cell<T> cell, Iterator<Cell<T>> cellIterator) {
@@ -555,8 +557,13 @@ public abstract class Table<T extends PDPage> {
     public void setTableIsBroken(boolean tableIsBroken) {
         this.tableIsBroken = tableIsBroken;
     }
+
     public void setStrokeColor(PDColor strokeColor) {
         this.strokeColor = strokeColor;
+    }
+
+    public void setStrokeWidth(float strokeWidth) {
+        this.strokeWidth = strokeWidth;
     }
 
 
