@@ -17,6 +17,7 @@ public class Row<T extends PDPage> {
 	PDOutlineItem bookmark;
 	List<Cell<T>> cells;
 	float height;
+	private Float rowHeight = null;
 
 	Row(Table<T> table, List<Cell<T>> cells, float height) {
 		this.table = table;
@@ -80,17 +81,21 @@ public class Row<T extends PDPage> {
 
 	public float getHeight() {
 
-		float maxheight = new Float(0);
+		if( rowHeight == null) {
+			float maxheight = new Float(0);
 
-		for (Cell<T> cell : this.cells) {
-			float cellHeight = 0;
-			cellHeight = cell.getTextHeight() + cell.getTopPadding() + cell.getBottomPadding();
+			for (Cell<T> cell : this.cells) {
+				float cellHeight = 0;
+				cellHeight = cell.getTextHeight() + cell.getTopPadding() + cell.getBottomPadding();
 
-			if (cellHeight > maxheight) {
-				maxheight = cellHeight;
+				if (cellHeight > maxheight) {
+					maxheight = cellHeight;
+				}
 			}
+			this.rowHeight = maxheight;
 		}
-		return maxheight;
+
+		return this.rowHeight;
 	}
 
 	public float getLineHeight() throws IOException {

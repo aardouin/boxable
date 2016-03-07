@@ -5,6 +5,7 @@
 package com.wopata.boxable;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
@@ -32,7 +33,8 @@ public class Paragraph {
 	private PDColor color;
 
 	private boolean drawDebug;
-	
+	private ArrayList<String> lines = null;
+
 	public Paragraph(String text, PDFont font, float fontSize, float width, final HorizontalAlignment align) {
 		this(text, font, fontSize, width, align, null);
 	}
@@ -66,36 +68,38 @@ public class Paragraph {
 	}
 
 	public List<String> getLines() {
-		List<String> result = new ArrayList<>();
+		if( lines == null) {
+			lines = new ArrayList<>();
 
-		String[] split = wrappingFunction.getLines(text);
+			String[] split = wrappingFunction.getLines(text);
 
-		int[] possibleWrapPoints = new int[split.length];
+			int[] possibleWrapPoints = new int[split.length];
 
-		possibleWrapPoints[0] = split[0].length();
+			possibleWrapPoints[0] = split[0].length();
 
-		for (int i = 1; i < split.length; i++) {
-			possibleWrapPoints[i] = possibleWrapPoints[i - 1] + split[i].length();
-		}
-
-		int start = 0;
-		int end = 0;
-		for (int i : possibleWrapPoints) {
-			float width = 0;
-			try {
-				width = font.getStringWidth(text.substring(start, i)) / 1000 * fontSize;
-			} catch (IOException e) {
-				throw new IllegalArgumentException(e.getMessage(), e);
+			for (int i = 1; i < split.length; i++) {
+				possibleWrapPoints[i] = possibleWrapPoints[i - 1] + split[i].length();
 			}
-			if (start < end && width > this.width) {
-				result.add(text.substring(start, end));
-				start = end;
+
+			int start = 0;
+			int end = 0;
+			for (int i : possibleWrapPoints) {
+				float width = 0;
+				try {
+					width = font.getStringWidth(text.substring(start, i)) / 1000 * fontSize;
+				} catch (IOException e) {
+					throw new IllegalArgumentException(e.getMessage(), e);
+				}
+				if (start < end && width > this.width) {
+					lines.add(text.substring(start, end));
+					start = end;
+				}
+				end = i;
 			}
-			end = i;
+			// Last piece of text
+			lines.add(text.substring(start));
 		}
-		// Last piece of text
-		result.add(text.substring(start));
-		return result;
+		return lines;
 	}
 
 	public float write(final PDPageContentStream stream, float cursorX, float cursorY) {

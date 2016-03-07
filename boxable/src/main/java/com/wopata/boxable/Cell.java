@@ -6,6 +6,7 @@ package com.wopata.boxable;
 
 
 import android.graphics.Color;
+import android.util.Log;
 
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.font.PDFont;

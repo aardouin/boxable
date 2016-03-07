@@ -39,7 +39,7 @@ public class ColoredColumnTable extends BaseTable {
     }
 
     protected Cell<PDPage> createCell(Row<PDPage> row , ColoredColumn column,int index,boolean isHeader) {
-        Cell<PDPage> cell = row.createPercentCell(column.getWitdhPercent(),null);
+        Cell<PDPage> cell = row.createPercentCell(column.getWitdhPercent(),null,HorizontalAlignment.CENTER,VerticalAlignment.MIDDLE);
         return cell;
     }
 
